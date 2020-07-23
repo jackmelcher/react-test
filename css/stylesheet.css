@@ -103,6 +103,9 @@ a:hover{
 .imgprofile{
   border-radius: 50%; width: 192px;
 }
+.closed{
+  display: none;
+}
 .sidenav {
   width: 240px;
   position: fixed;

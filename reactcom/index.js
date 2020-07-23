@@ -49,3 +49,4 @@ class Navbar extends React.Component
     }
 }
 ReactDOM.render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<Navbar />, document.getElementById('navbar'));
