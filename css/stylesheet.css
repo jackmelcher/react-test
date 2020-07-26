@@ -131,7 +131,6 @@ a:hover{
   border-width: 0px 0px 1px 1px;
   border-color: var(--side-border-color);
   z-index: 1;
-  display: none;
   text-align: center;
   font-weight: bold;
 }

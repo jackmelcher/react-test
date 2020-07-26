@@ -1,12 +1,38 @@
-function Settings ({open})
+function Settings ()
 {
-    const classList = `settingsnav ${open ? '':'closed'}`;
-    const [theme,setTheme] = React.useState(false);
+    const [theme,setTheme] = React.useState(localStorage.getItem("site-theme") ? true : false);
 
     React.useEffect(() => {    
-        // Update the document title using the browser API    
         const htmlTag = document.getElementsByTagName("html")[0];
-        if (htmlTag.hasAttribute("data-theme")) {
+        if (!theme) {
+            htmlTag.removeAttribute("data-theme");
+            localStorage.removeItem("site-theme");
+        }
+        else{
+            htmlTag.setAttribute("data-theme", "dark");
+            localStorage.setItem("site-theme", "dark");
+        }
+    },[theme]);
+
+    return (
+        <div className="settingsnav">
+            <p>
+                <span id="themetext">{theme ? "Dark " : "Light "}Mode:</span>
+                <label className="switch">
+                    <input type="checkbox" checked={theme} id="theme-toggle" onClick={()=> setTheme(!theme)} />
+                    <span className="slider round"></span>
+                </label>
+            </p>
+        </div>
+    );
+}
+
+function Init({children})
+{
+    React.useEffect(() => {    
+        // Initialize Theme 
+        const htmlTag = document.getElementsByTagName("html")[0];
+        if (!localStorage.getItem("site-theme")) {
             htmlTag.removeAttribute("data-theme");
             localStorage.removeItem("site-theme");
         }
@@ -17,15 +43,9 @@ function Settings ({open})
     });
 
     return (
-        <div className={classList}>
-            <p>
-                <span id="themetext">Light Mode:</span>
-                <label className="switch">
-                    <input type="checkbox" id="theme-toggle" onClick={()=> setTheme(!theme)} />
-                    <span className="slider round"></span>
-                </label>
-            </p>
-        </div>
+        <>
+            {children}
+        </>
     );
 }
 
@@ -61,7 +81,9 @@ function Navbar ()
             <button className="button settingsnavbutton" onClick={() => setOpen(!open)}>
                 <i className="menuicon fas fa-cog"></i>
             </button>
-            <Settings open={open}/>
+            {
+                open && <Settings />
+            }
         </div>
     );
 }
@@ -101,11 +123,11 @@ function Content()
 function Home ()
 {
     return (
-        <>
+        <Init>
             <Navbar />
             <Content />
             <Footer />
-        </>
+        </Init>
     );
 }
 ReactDOM.render(<Home />, document.getElementById('root'));
