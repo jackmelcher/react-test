@@ -27,12 +27,15 @@ function themeMode(isDarkMode)
     }
 }
 
-function Navbar ()
+function Navbar()
 {
     const [open, setOpen] = React.useState(false);
 
     return (
         <div className="navbar">
+            <span id="sidebutton">
+
+            </span>
             <a href="/" className="button button_logo">
                 <img src="images/logo.svg" alt="logo" className="logoimg"/>
             </a>
@@ -52,7 +55,8 @@ function Navbar ()
     );
 }
 
-function Settings ()
+
+function Settings()
 {
     const [theme,setTheme] = React.useState(localStorage.getItem("site-theme") ? true : false);
 
@@ -73,12 +77,11 @@ function Settings ()
     );
 }
 
-function Body ()
+function Body()
 {
     return (
         <Init>
             <Navbar />
-            <div id="sidebar"/>
             <div id="content"/>
             <div id="footer"/>
         </Init>

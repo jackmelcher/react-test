@@ -5,14 +5,34 @@ function Guides()
     );
 }
 
-function Sidenav()
+function SideNav()
 {
+    React.useEffect(() => {    
+        makeSidebar();
+    });
+
     return(
-        <div className="sidenav"></div>
+          <div id="sidebar" className="sidenav"></div>
+    );
+}
+
+function SideNavButton()
+{
+    const [open, setOpen] = React.useState(true);
+
+    return(
+        <>
+            <button className="button sidenavbutton" onClick={() => setOpen(!open)}>
+                {open ? <i className="menuicon fas fa-times"></i> : <i className="menuicon fas fa-bars"></i>}
+            </button>
+            {
+                open && <SideNav />
+            }
+        </>
     );
 }
 ReactDOM.render(<Guides />, document.getElementById("content"));
-ReactDOM.render(<Sidenav />, document.getElementById("sidebar"));
+ReactDOM.render(<SideNavButton />, document.getElementById("sidebutton"));
 
 // Functions for the Guides Sidenav
 var side = document.getElementsByClassName("sidenav")[0];
@@ -20,8 +40,6 @@ var sidebutton = document.getElementsByClassName("sidenavbutton")[0];
 var menuicon = document.getElementsByClassName("menuicon")[0];
 
 var mq = window.matchMedia("(max-width: 768px)");
-
-makeSidebar();
 
 function resizeSideNav(mq)
 {
